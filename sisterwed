@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ramakrishnan & Sweatha Wedding</title>
+    <style>
+        :root {
+            --primary: #800020; /* Elegant Burgundy */
+            --gold: #D4AF37;    /* Festive Gold */
+            --dark: #2C2C2C;
+            --light: #FFFDF9;
+        }
+        
+        body {
+            font-family: 'Georgia', serif;
+            background-color: var(--light);
+            color: var(--dark);
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        header {
+            padding: 60px 20px;
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://unsplash.com') no-repeat center center/cover;
+            color: white;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            color: var(--gold);
+        }
+
+        .subtitle {
+            font-style: italic;
+            font-size: 1.5rem;
+            margin-top: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            padding: 30px;
+            margin: 30px 0;
+            border-top: 5px solid var(--gold);
+        }
+
+        .event-title {
+            color: var(--primary);
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .details {
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 12px 25px;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            margin-top: 15px;
+            transition: 0.3s;
+            border: 1px solid transparent;
+        }
+
+        .btn:hover {
+            background-color: transparent;
+            color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        footer {
+            margin: 60px 0;
+            font-size: 1.1rem;
+            color: var(--dark);
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <p>🕉️ Wedding Invitation</p>
+        <h1>Ramakrishnan & Sweatha</h1>
+        <p class="subtitle">Are Tying the Knot!</p>
+    </header>
+
+    <div class="container">
+        
+        <!-- Wedding Card -->
+        <div class="card">
+            <div class="event-title">🌺 Wedding Ceremony</div>
+            <div class="details">
+                <p><strong>Date:</strong> Friday, October 30, 2026</p>
+                <p><strong>Muhurtham:</strong> 6:00 AM – 7:30 AM</p>
+                <p><strong>Venue:</strong> Mailam Murugan Temple, Villupuram</p>
+                <a href="https://google.com" target="_blank" class="btn">📍 View on Google Maps</a>
+            </div>
+        </div>
+
+        <!-- Reception Card -->
+        <div class="card">
+            <div class="event-title">💒 Reception Night</div>
+            <div class="details">
+                <p><strong>Date:</strong> Sunday, November 1, 2026</p>
+                <p><strong>Time:</strong> 6:00 PM – 10:30 PM</p>
+                <p><strong>Venue:</strong> The Palace House, Injambakkam, Chennai</p>
+                <a href="https://google.com" target="_blank" class="btn">📍 View on Google Maps</a>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>🙏 Your presence & blessings mean the world to us</p>
+        <p style="font-weight: normal; font-size: 0.9rem; color: #555;">— Mr. Krishnamoorthi & Mr. Elumalai Families —</p>
+    </footer>
+
+</body>
+</html>
