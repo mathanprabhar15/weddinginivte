@@ -3,732 +3,162 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wedding Invitation</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-        body {
-            background-color: #1a0206;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            overflow-x: hidden;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .phone-frame {
-            width: 100%;
-            max-width: 480px;
-            background: #fffdf9;
-            min-height: 100vh;
-            position: relative;
-            box-shadow: 0 0 30px rgba(0,0,0,0.5);
-            display: flex;
-            flex-direction: column;
-        }
-        
-        /* ENVELOPE OVERLAY SCREEN */
-        #envelope-screen {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, #3d030e 0%, #150004 100%);
-            z-index: 100;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.6s ease;
-            padding: 20px;
-            text-align: center;
-        }
-        .envelope-container {
-            width: 90%;
-            aspect-ratio: 1.6 / 1;
-            background: #a31d37;
-            border-radius: 8px;
-            position: relative;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
-            cursor: pointer;
-            border: 2px solid #dfba6b;
-            margin-bottom: 40px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .feather-graphic {
-            width: 50%;
-            opacity: 0.85;
-        }
-        .ganesha-graphic {
-            font-size: 55px;
-            color: #dfba6b;
-            position: absolute;
-            right: 15px;
-            bottom: 15px;
-            opacity: 0.8;
-        }
-        .tap-prompt {
-            color: #dfba6b;
-            font-size: 20px;
-            font-weight: 600;
-            letter-spacing: 1px;
-            margin-bottom: 8px;
-            animation: pulse 1.8s infinite;
-        }
-        .tamil-tap {
-            color: #e2c280;
-            font-size: 14px;
-            opacity: 0.8;
-        }
-        @keyframes pulse {
-            0% { opacity: 0.6; transform: scale(0.98); }
-            50% { opacity: 1; transform: scale(1.02); }
-            100% { opacity: 0.6; transform: scale(0.98); }
-        }
-
-        /* MAIN APP VIEWPORT CONTROLLER */
-        #main-content {
-            display: none;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            width: 100%;
-        }
-        
-        /* BANNER */
-        .maroon-banner {
-            background: linear-gradient(135deg, #7a0f28 0%, #4a0514 100%);
-            color: #fff;
-            padding: 35px 20px;
-            text-align: center;
-            border-bottom: 4px solid #dfba6b;
-        }
-        .diya-strip {
-            font-size: 22px;
-            letter-spacing: 8px;
-            margin-bottom: 10px;
-            color: #dfba6b;
-        }
-        .om-badge {
-            font-size: 34px;
-            color: #dfba6b;
-            margin: 8px 0;
-        }
-        .tamil-main-title {
-            font-size: 22px;
-            font-weight: bold;
-            color: #dfba6b;
-            margin-bottom: 4px;
-        }
-        .english-sub-title {
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            color: #e5c158;
-        }
-
-        /* FAMILY RECEPTION INTRODUCTION BLOCK */
-        .invite-intro {
-            text-align: center;
-            padding: 30px 20px 10px 20px;
-            font-size: 14.5px;
-            line-height: 1.6;
-            color: #5a121e;
-            font-weight: 500;
-        }
-
-        /* PROFILE BADGES AREA */
-        .badge-grid {
-            display: flex;
-            justify-content: space-around;
-            align-items: flex-start;
-            padding: 20px 10px;
-            position: relative;
-        }
-        .badge-node {
-            width: 45%;
-            text-align: center;
-        }
-        .circle-badge {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 12px auto;
-            background: radial-gradient(circle, #fff3e3 0%, #f7dfbe 100%);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 2px solid #dfba6b;
-            box-shadow: 0 5px 12px rgba(122,15,40,0.15);
-        }
-        .circle-badge span {
-            font-size: 32px;
-            font-weight: bold;
-            color: #7a0f28;
-        }
-        .profile-name {
-            font-size: 17px;
-            font-weight: bold;
-            color: #7a0f28;
-            text-transform: uppercase;
-        }
-        .profile-sub {
-            font-size: 10.5px;
-            color: #555;
-            margin-top: 2px;
-            font-weight: 500;
-        }
-        .profile-tamil {
-            font-size: 13.5px;
-            color: #4a0514;
-            margin: 4px 0;
-            font-weight: bold;
-        }
-        .parent-lines {
-            font-size: 11px;
-            line-height: 1.4;
-            color: #666;
-        }
-        .parent-prefix {
-            color: #9c1c36;
-            font-weight: bold;
-            font-size: 9.5px;
-            display: block;
-            margin-bottom: 2px;
-        }
-        .center-linker {
-            position: absolute;
-            left: 50%;
-            top: 40px;
-            transform: translateX(-50%);
-            font-size: 30px;
-            color: #dfba6b;
-            font-style: italic;
-            font-weight: bold;
-            background: #fffdf9;
-            padding: 0 4px;
-        }
-        .center-linker sub {
-            font-size: 9px;
-            text-transform: uppercase;
-            color: #8e6d2b;
-            display: block;
-            margin-top: -8px;
-        }
-
-        /* CARD CONTAINERS FOR SCHEDULES */
-        .schedule-wrap {
-            padding: 10px 20px;
-        }
-        .event-panel {
-            background: #fff;
-            border-radius: 12px;
-            border: 1px solid #eed6b3;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
-            margin-bottom: 20px;
-            overflow: hidden;
-        }
-        .panel-heading {
-            background: linear-gradient(90deg, #7a0f28 0%, #9c1c36 100%);
-            color: #fff;
-            padding: 12px 16px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .panel-heading.reception {
-            background: linear-gradient(90deg, #510a1b 0%, #700d23 100%);
-        }
-        .panel-icon {
-            font-size: 18px;
-        }
-        .panel-titles h4 {
-            margin: 0;
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        .panel-titles p {
-            margin: 0;
-            font-size: 11px;
-            opacity: 0.85;
-        }
-        .panel-body {
-            padding: 16px;
-            font-size: 13.5px;
-            line-height: 1.5;
-        }
-        .panel-row {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 12px;
-            align-items: flex-start;
-        }
-        .panel-row:last-child {
-            margin-bottom: 0;
-        }
-        .row-ico {
-            color: #9c1c36;
-            font-size: 14px;
-            margin-top: 2px;
-        }
-        .row-lbl strong {
-            color: #4a0514;
-        }
-        .row-lbl p {
-            margin: 1px 0 0 0;
-            font-size: 12px;
-            color: #666;
-        }
-
-        /* LIVE COUNTDOWN DOCK */
-        .countdown-dock {
-            background: linear-gradient(135deg, #4a0514 0%, #29010a 100%);
-            color: #fff;
-            margin: 10px 20px 25px 20px;
-            padding: 20px 10px;
-            border-radius: 12px;
-            text-align: center;
-            border: 1px solid #dfba6b;
-        }
-        .countdown-dock h5 {
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: #dfba6b;
-            margin-bottom: 15px;
-        }
-        .timer-row {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-        }
-        .time-box {
-            min-width: 65px;
-        }
-        .time-num {
-            font-size: 24px;
-            font-weight: bold;
-            color: #fff;
-            background: rgba(255,255,255,0.06);
-            padding: 6px 4px;
-            border-radius: 6px;
-            border: 1px solid rgba(223,186,107,0.3);
-            display: block;
-        }
-        .time-lbl {
-            font-size: 9px;
-            text-transform: uppercase;
-            color: #e5c158;
-            margin-top: 5px;
-            display: block;
-            letter-spacing: 0.5px;
-        }
-
-        /* ROUTING CONTROLS DASHBOARD PANEL */
-        .route-dashboard {
-            margin: 25px 20px;
-            padding: 20px;
-            background: #fff;
-            border-radius: 12px;
-            border: 1px dashed #dfba6b;
-            text-align: center;
-        }
-        .dashboard-title {
-            margin-bottom: 15px;
-            font-size: 14px;
-            color: #7a0f28;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            font-weight: bold;
-        }
-        .dashboard-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        .btn-link-maps {
-            background-color: #9c1c36;
-            color: #fff;
-            text-decoration: none;
-            padding: 12px;
-            font-weight: bold;
-            border-radius: 25px;
-            font-size: 12.5px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            box-shadow: 0 4px 8px rgba(156,28,54,0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-        .btn-link-call {
-            background-color: #fff;
-            color: #9c1c36;
-            text-decoration: none;
-            padding: 11px;
-            font-weight: bold;
-            border-radius: 25px;
-            font-size: 12.5px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            border: 2px solid #9c1c36;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        /* CONCLUDING BLOCKS SIGN OFF */
-        .signature-footer {
-            text-align: center;
-            padding: 30px 20px;
-            background: #fbeedb;
-            border-top: 1px solid #eed6b3;
-            margin-top: 20px;
-        }
-        .closing-quote {
-            font-size: 13.5px;
-            font-weight: bold;
-            font-style: italic;
-            color: #4a0514;
-            margin-bottom: 15px;
-        }
-        .cordial-lbl {
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #8e6d2b;
-            font-weight: bold;
-        }
-        .brother-host {
-            font-size: 18px;
-            font-weight: bold;
-            color: #7a0f28;
-            margin: 4px 0;
-        }
-        .blessing-tamil-end {
-            font-size: 12px;
-            color: #8e6d2b;
-            font-weight: bold;
-            margin-top: 5px;
-        }
-
-        /* BACKGROUND MUSIC NODES ACCENTS */
-        .audio-node-trigger {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 45px;
-            height: 45px;
-            background: #7a0f28;
-            color: #fff;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-            cursor: pointer;
-            z-index: 90;
-            border: 2px solid #dfba6b;
-        }
-        .audio-node-trigger i {
-            font-size: 18px;
-        }
-        .music-pulse {
-            animation: audioRotate 4s linear infinite;
-        }
-        @keyframes audioRotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-    </style>
+    <title>Sudhakaran & Dharani Wedding Invitation</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Google Fonts for Elegant Typography -->
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com/css2?family=Cinzel:wght@500;700&family=Noto+Serif+Tamil:wght@400;700&family=Great+Vibes&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <div class="phone-frame">
-        
-        <!-- ENVELOPE GATE COVER SCREEN -->
-        <div id="envelope-screen" onclick="openEnvelope()">
-            <div class="tap-prompt">TAP TO OPEN</div>
-            <div class="envelope-container">
-                <!-- Fallback clean vectors representing the physical peacock feather setup -->
-                <svg class="feather-graphic" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M50,90 C50,60 65,35 80,20 C60,35 45,55 42,75 C40,55 30,35 15,20 C30,35 48,60 50,90 Z" fill="#dfba6b"/>
-                    <circle cx="50" cy="45" r="12" fill="#a31d37" stroke="#dfba6b" stroke-width="2"/>
-                    <circle cx="50" cy="45" r="6" fill="#dfba6b"/>
-                </svg>
-                <div class="ganesha-graphic">🕉️</div>
-            </div>
-            <div class="tamil-tap">திருமண அழைப்பிதழை திறக்க தொடவும்</div>
-        </div>
+    <!-- Background Audio Component -->
+    <audio id="bg-music" loop>
+        <source src="https://mixkit.co" type="audio/mp3">
+    </audio>
 
-        <!-- MAIN DIGITAL CONTAINER BLOCK -->
-        <div id="main-content">
+    <!-- Music Control Float Button -->
+    <button id="music-toggle" onclick="toggleMusic()" aria-label="Toggle Music">🎵</button>
+
+    <div class="wrapper">
+        <!-- Header Section -->
+        <header class="hero-header">
+            <div class="divine-symbol">🕉</div>
+            <p class="tamil-title">திருமண அழைப்பிதழ்</p>
+            <h1 class="main-title">Wedding Invitation</h1>
+            <div class="decorative-divider">🌸 🪔 🌸</div>
+        </header>
+
+        <!-- Personal Invite Note -->
+        <section class="personal-note">
+            <p class="invite-text">With the divine blessings of our ancestors, I joyfully invite you to witness and bless the sacred wedding ceremony of my beloved sister</p>
+        </section>
+
+        <!-- Couple Display Section -->
+        <section class="couple-container">
+            <div class="profile-card">
+                <span class="initial-badge">S</span>
+                <h2>Sudhakaran <small>B.E. (Infosys, Bangalore)</small></h2>
+                <p class="tamil-name">சுதாகரன்</p>
+                <p class="parents-info">S/O Thiru. A. Krishnan & Thirumathi. K. Rajeshwari</p>
+            </div>
+
+            <div class="weds-badge">weds</div>
+
+            <div class="profile-card">
+                <span class="initial-badge">D</span>
+                <h2>Dharani <small>@ Thanalakshmi B.E. (Accenture)</small></h2>
+                <p class="tamil-name">தரணி @ தனலட்சுமி</p>
+                <p class="parents-info">D/O Thiru. S. Pugalenthi & Thirumathi. P. Amuthavalli</p>
+            </div>
+        </section>
+
+        <!-- Events Container -->
+        <section class="events-grid">
+            <!-- Event 1: Reception -->
+            <div class="event-card reception">
+                <div class="card-icon">💒</div>
+                <h3>Wedding Reception</h3>
+                <p class="tamil-event-title">வரவேற்பு விழா</p>
+                <hr>
+                <p class="event-date"><strong>Saturday, September 12, 2026</strong></p>
+                <p class="tamil-date">சனிக்கிழமை, செப்டம்பர் 12, 2026</p>
+                <p class="event-time">⏱ மாலை 5:00 மணி முதல் (5:00 PM onwards)</p>
+            </div>
+
+            <!-- Event 2: Muhurtham -->
+            <div class="event-card muhurtham">
+                <div class="card-icon">🌸</div>
+                <h3>Wedding Ceremony</h3>
+                <p class="tamil-event-title">திருமண விழா</p>
+                <hr>
+                <p class="event-date"><strong>Sunday, September 13, 2026</strong></p>
+                <p class="tamil-date">ஞாயிற்றுக்கிழமை, செப்டம்பர் 13, 2026</p>
+                <p class="event-time">⏱ அதிகாலை 5:00 மணி முதல் (Muhurtham: 5:00 AM onwards)</p>
+            </div>
+        </section>
+
+        <!-- Venue Location Box -->
+        <section class="venue-card">
+            <h3>📍 Venue Location</h3>
+            <p class="venue-name"><strong>Sree Poorna Mahal</strong></p>
+            <p class="venue-address">Kanjikovil, Perundurai Road, Erode.</p>
             
-            <!-- Traditional Heading Layout -->
-            <div class="maroon-banner">
-                <div class="diya-strip">🪔 🪔 🪔</div>
-                <div class="om-badge">ॐ</div>
-                <div class="tamil-main-title">திருமண அழைப்பிதழ்</div>
-                <div class="english-sub-title">Wedding Invitation</div>
-                <div class="garland">🌸 🌺 🌼 🌸 💛 🌸 🌼 🌺 🌸</div>
+            <div class="action-buttons">
+                <a href="https://google.com" target="_blank" class="btn btn-primary">🗺️ Open Google Maps</a>
+                <a href="tel:+919655705188" class="btn btn-secondary">📞 Call Prabhaharan</a>
             </div>
+        </section>
 
-            <!-- Welcome Wording Sibling Hook -->
-            <div class="invite-intro">
-                With the divine blessings of our ancestors, I joyfully invite you to witness and bless the sacred wedding ceremony of my beloved sister
+        <!-- Live Countdown Timer -->
+        <section class="countdown-card">
+            <h3>⏳ Counting Down To The Big Day</h3>
+            <div id="timer" class="timer-display">
+                <div class="time-block"><span id="days">00</span><small>Days</small></div>
+                <div class="time-block"><span id="hours">00</span><small>Hrs</small></div>
+                <div class="time-block"><span id="minutes">00</span><small>Mins</small></div>
+                <div class="time-block"><span id="seconds">00</span><small>Secs</small></div>
             </div>
+        </section>
 
-            <!-- Profile Rows with Circular Badges -->
-            <div class="badge-grid">
-                <!-- Groom -->
-                <div class="badge-node">
-                    <div class="circle-badge">
-                        <span>S</span>
-                    </div>
-                    <div class="profile-name">Sudhakaran</div>
-                    <div class="profile-sub">B.E. (Infosys, Bangalore)</div>
-                    <div class="profile-tamil">சுதாகரன்</div>
-                    <div class="parent-lines">
-                        <span class="parent-prefix">S/O Thiru.</span>
-                        A. Krishnan &<br>Thirumathi. K. Rajeshwari
-                    </div>
-                </div>
-
-                <!-- Weds Sign -->
-                <div class="center-linker">
-                    &
-                    <sub>weds</sub>
-                </div>
-
-                <!-- Bride -->
-                <div class="badge-node">
-                    <div class="circle-badge">
-                        <span>D</span>
-                    </div>
-                    <div class="profile-name">Dharani</div>
-                    <div class="profile-sub">@ Thanalakshmi B.E. (Accenture)</div>
-                    <div class="profile-tamil">தரணி @ தனலட்சுமி</div>
-                    <div class="parent-lines">
-                        <span class="parent-prefix">D/O Thiru.</span>
-                        S. Pugalenthi &<br>Thirumathi. P. Amuthavalli
-                    </div>
-                </div>
-            </div>
-
-            <div style="text-align: center; color: #eed6b3; margin: 10px 0;">🌸 🪔 🌸</div>
-
-            <!-- Schedule Card Sections -->
-            <div class="schedule-wrap">
-                
-                <!-- 1. Muhurtham Info Card Panel -->
-                <div class="event-panel">
-                    <div class="panel-heading">
-                        <span class="panel-icon">🕉️</span>
-                        <div class="panel-titles">
-                            <h4>Wedding Ceremony</h4>
-                            <p>திருமண விழா</p>
-                        </div>
-                    </div>
-                    <div class="panel-body">
-                        <div class="panel-row">
-                            <span class="row-ico"><i class="fa-solid fa-calendar-days"></i></span>
-                            <div class="row-lbl">
-                                <strong>Sunday, September 13, 2026</strong>
-                                <p>ஞாயிற்றுக்கிழமை, செப்டம்பர் 13, 2026</p>
-                            </div>
-                        </div>
-                        <div class="panel-row">
-                            <span class="row-ico"><i class="fa-solid fa-clock"></i></span>
-                            <div class="row-lbl">
-                                <strong>Auspicious Muhurtham: 5:00 AM onwards</strong>
-                                <p>அதிகாலை 5:00 மணி முதல்</p>
-                            </div>
-                        </div>
-                        <div class="panel-row">
-                            <span class="row-ico"><i class="fa-solid fa-location-dot"></i></span>
-                            <div class="row-lbl">
-                                <strong>Sree Poorna Mahal</strong>
-                                <p>Kanjikovil, Perundurai Road, Erode.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 2. Reception Info Card Panel -->
-                <div class="event-panel">
-                    <div class="panel-heading reception">
-                        <span class="panel-icon">💒</span>
-                        <div class="panel-titles">
-                            <h4>Wedding Reception</h4>
-                            <p>வரவேற்பு விழா</p>
-                        </div>
-                    </div>
-                    <div class="panel-body">
-                        <div class="panel-row">
-                            <span class="row-ico"><i class="fa-solid fa-calendar-days"></i></span>
-                            <div class="row-lbl">
-                                <strong>Saturday, September 12, 2026</strong>
-                                <p>சனிக்கிழமை, செப்டம்பர் 12, 2026</p>
-                            </div>
-                        </div>
-                        <div class="panel-row">
-                            <span class="row-ico"><i class="fa-solid fa-clock"></i></span>
-                            <div class="row-lbl">
-                                <strong>Time: 5:00 PM onwards</strong>
-                                <p>மாலை 5:00 மணி முதல்</p>
-                            </div>
-                        </div>
-                        <div class="panel-row">
-                            <span class="row-ico"><i class="fa-solid fa-location-dot"></i></span>
-                            <div class="row-lbl">
-                                <strong>Sree Poorna Mahal</strong>
-                                <p>Kanjikovil, Perundurai Road, Erode.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- Dynamic Real Time Countdown Node -->
-            <div class="countdown-dock">
-                <h5>Counting Down To The Wedding Day</h5>
-                <div class="timer-row">
-                    <div class="time-box">
-                        <span class="time-num" id="days">00</span>
-                        <span class="time-lbl">Days</span>
-                    </div>
-                    <div class="time-box">
-                        <span class="time-num" id="hours">00</span>
-                        <span class="time-lbl">Hrs</span>
-                    </div>
-                    <div class="time-box">
-                        <span class="time-num" id="minutes">00</span>
-                        <span class="time-lbl">Mins</span>
-                    </div>
-                    <div class="time-box">
-                        <span class="time-num" id="seconds">00</span>
-                        <span class="time-lbl">Secs</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Action Navigation Hub Area -->
-            <div class="route-dashboard">
-                <div class="dashboard-title">📍 Venue Location & Contact</div>
-                <div class="dashboard-buttons">
-                    <a href="https://maps.google.com/?q=Sree+Poorna+Mahal+Kanjikovil+Erode" target="_blank" class="btn-link-maps">
-                        <i class="fa-solid fa-map-location-dot"></i> Open Google Maps
-                    </a>
-                    <a href="tel:9655705188" class="btn-link-call">
-                        <i class="fa-solid fa-phone"></i> Call Prabhaharan (9655705188)
-                    </a>
-                </div>
-            </div>
-
-            <!-- Host Grid Close Out -->
-            <div class="signature-footer">
-                <div class="closing-quote">Your presence and heartiest blessings mean the world to us!</div>
-                <div class="cordial-lbl">With Cordial Regards,</div>
-                <div class="brother-host">Prabhaharan & Family</div>
-                <div class="blessing-tamil-end">🙏 வாழ்க வளமுடன் 🙏</div>
-            </div>
-
-        </div>
+        <!-- Footer Card -->
+        <footer class="invite-footer">
+            <p class="closing-blessing">Your presence and heartiest blessings mean the world to us!</p>
+            <p class="regards">With Cordial Regards,</p>
+            <p class="host-signature">Prabhaharan & Family</p>
+            <p class="blessing-tag">🙏 வாழ்க வளமுடன் 🙏</p>
+        </footer>
     </div>
 
-    <!-- Floating Background Instrumental Controls Toggle -->
-    <div id="audio-toggle-node" class="audio-node-trigger" onclick="toggleAudioState()" style="display:none;">
-        <i class="fa-solid fa-music"></i>
-    </div>
-
-    <!-- Background Music Loop Track (Traditional instrumental placeholder) -->
-    <audio id="invite-audio" src="https://www.soundhelix.com/examples/mp3/SoundHelix.mp3" loop></audio>
-
+    <!-- Countdown & Audio System JavaScript -->
     <script>
-        // FUNCTION TO HANDLE ENVELOPE GATE SEAMLESS TRANSITION
-        function openEnvelope() {
-            const envScreen = document.getElementById('envelope-screen');
-            const mainContent = document.getElementById('main-content');
-            const musicBtn = document.getElementById('audio-toggle-node');
-            const audioTrack = document.getElementById('invite-audio');
+        // Real-Time Countdown Functionality
+        const weddingDate = new Date("Sep 12, 2026 17:00:00").getTime();
 
-            // Slide up and fade out overlay card
-            envScreen.style.transform = 'translateY(-100%)';
-            envScreen.style.opacity = '0';
-            
-            // Activate core app content nodes
-            mainContent.style.display = 'block';
-            setTimeout(() => {
-                mainContent.style.opacity = '1';
-                musicBtn.style.display = 'flex';
-            }, 100);
+        const timerInterval = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = weddingDate - now;
 
-            // Attempt to trigger instrumental loop safely after screen click action bounding
-            audioTrack.play().then(() => {
-                musicBtn.classList.add('music-pulse');
-            }).catch(err => {
-                console.log("Audio autoplay prevented by security configuration policies.");
-            });
-
-            // Clean DOM stack nodes from viewport hierarchy after transitions complete
-            setTimeout(() => {
-                envScreen.style.display = 'none';
-            }, 800);
-        }
-
-        // AMBIENT BACKGROUND MUSIC SWITCH INTERACTION LOOP
-        function toggleAudioState() {
-            const audioTrack = document.getElementById('invite-audio');
-            const musicBtn = document.getElementById('audio-toggle-node');
-            const iconNode = musicBtn.querySelector('i');
-
-            if (audioTrack.paused) {
-                audioTrack.play();
-                musicBtn.classList.add('music-pulse');
-                iconNode.className = "fa-solid fa-music";
-            } else {
-                audioTrack.pause();
-                musicBtn.classList.remove('music-pulse');
-                iconNode.className = "fa-solid fa-volume-xmark";
-            }
-        }
-
-        // DYNAMIC TARGETED TIME CALCULATOR DOCK ENGINE
-        const weddingTimestamp = new Date("September 12, 2026 17:00:00").getTime();
-
-        const timerEngineInterval = setInterval(function() {
-            const currentTimestamp = new Date().getTime();
-            const timeDifference = weddingTimestamp - currentTimestamp;
-
-            if (timeDifference <= 0) {
-                clearInterval(timerEngineInterval);
-                document.getElementById("days").innerText = "00";
-                document.getElementById("hours").innerText = "00";
-                document.getElementById("minutes").innerText = "00";
-                document.getElementById("seconds").innerText = "00";
+            if (distance < 0) {
+                clearInterval(timerInterval);
+                document.getElementById("timer").innerHTML = "<div class='live-tag'>✨ The Celebration Has Begun! ✨</div>";
                 return;
             }
 
-            const totalDays = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-            const totalHours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const totalMinutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
-            const totalSeconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            document.getElementById("days").innerText = totalDays < 10 ? "0" + totalDays : totalDays;
-            document.getElementById("hours").innerText = totalHours < 10 ? "0" + totalHours : totalHours;
-            document.getElementById("minutes").innerText = totalMinutes < 10 ? "0" + totalMinutes : totalMinutes;
-            document.getElementById("seconds").innerText = totalSeconds < 10 ? "0" + totalSeconds : totalSeconds;
+            document.getElementById("days").innerText = days.toString().padStart(2, '0');
+            document.getElementById("hours").innerText = hours.toString().padStart(2, '0');
+            document.getElementById("minutes").innerText = minutes.toString().padStart(2, '0');
+            document.getElementById("seconds").innerText = seconds.toString().padStart(2, '0');
         }, 1000);
+
+        // Background Audio Controls
+        const music = document.getElementById("bg-music");
+        const musicBtn = document.getElementById("music-toggle");
+
+        function toggleMusic() {
+            if (music.paused) {
+                music.play().catch(err => console.log("Audio play blocked by browser settings. Click again."));
+                musicBtn.innerText = "⏸️";
+                musicBtn.classList.add("playing");
+            } else {
+                music.pause();
+                musicBtn.innerText = "🎵";
+                musicBtn.classList.remove("playing");
+            }
+        }
+
+        // Auto-play hint on user's first touch point anywhere on screen
+        document.body.addEventListener('click', function() {
+            if(music.paused && !musicBtn.classList.contains('playing')) {
+                // Remove comment below to enforce automated stream on first interaction
+                // toggleMusic();
+            }
+        }, { once: true });
     </script>
 </body>
 </html>
